@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hackathon Hub - The Future of Innovation</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Poppins:wght@300;400;500;600;700;800&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet">
+    <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_GOOGLE_MAPS_API_KEY"></script>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-content">
+                <div class="logo"> HACKATHON HUB </div>
+                <div class="nav-links">
+                    <a href="#" onclick="loadPage('dashboard')"> Dashboard</a>
+                    <a href="#" onclick="loadPage('explore')"> Explore</a>
+                    <a href="#" onclick="logout()"> Logout</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container main-content" id="main-content">
+        <!-- Login Page -->
+        <div id="login-page" class="page active">
+            <div class="auth-container">
+                <div class="auth-card">
+                    <h1>HACKATHON HUB</h1>
+                    <p class="subtitle"> Innovation Starts Here </p>
+                    
+                    <form id="login-form" onsubmit="handleLogin(event)">
+                        <div class="form-group">
+                            <label for="login-email"> Email</label>
+                            <input type="email" id="login-email" placeholder="your.email@example.com" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="login-password"> Password</label>
+                            <input type="password" id="login-password" placeholder="" required>
+                        </div>
+                        
+                        <button type="submit" class="btn btn-primary btn-block"> ENTER THE HUB</button>
+                    </form>
+                    
+
+                    <p class="form-footer">New here? <a href="#" onclick="loadPage('signup')">Create your account</a></p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Signup Page -->
+        <div id="signup-page" class="page">
+            <div class="auth-container">
+                <div class="auth-card wide-card">
+                    <h1>JOIN THE HUB</h1>
+                    <p class="subtitle"> Create Your Account </p>
+                    
+                    <div class="user-type-selector">
+                        <button class="type-btn active" onclick="selectUserType('student', event)">
+                             STUDENT
+                        </button>
+                        <button class="type-btn" onclick="selectUserType('organization', event)">
+                             ORGANIZATION
+                        </button>
+                    </div>
+                    
+                    <form id="signup-form" onsubmit="handleSignup(event)">
+                        <!-- Student Signup -->
+                        <div id="student-signup" class="signup-section active">
+                            <div class="form-group">
+                                <label for="student-name">Full Name</label>
+                                <input type="text" id="student-name" placeholder="Enter your full name">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="student-dob">Date of Birth</label>
+                                <input type="date" id="student-dob">
+                            </div>
+                            
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="student-mobile">Mobile Number</label>
+                                    <input type="tel" id="student-mobile" placeholder="10 digit mobile number">
+                                </div>
+                                <div class="form-group">
+                                    <label for="student-whatsapp">WhatsApp Number</label>
+                                    <input type="tel" id="student-whatsapp" placeholder="WhatsApp number">
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="student-email">Email ID</label>
+                                <input type="email" id="student-email" placeholder="your.email@example.com">
+                            </div>
+                            
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="student-password">Password</label>
+                                    <input type="password" id="student-password" placeholder="Enter password">
+                                </div>
+                                <div class="form-group">
+                                    <label for="student-confirm-password">Confirm Password</label>
+                                    <input type="password" id="student-confirm-password" placeholder="Confirm password">
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Organization Signup -->
+                        <div id="organization-signup" class="signup-section">
+                            <div class="form-group">
+                                <label for="org-name">Organization Name</label>
+                                <input type="text" id="org-name" placeholder="Enter organization name">
+                            </div>
+                            
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="org-phone">Phone Number</label>
+                                    <input type="tel" id="org-phone" placeholder="Contact number">
+                                </div>
+                                <div class="form-group">
+                                    <label for="org-email">Email ID</label>
+                                    <input type="email" id="org-email" placeholder="org.email@example.com">
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="org-address">Address</label>
+                                <textarea id="org-address" placeholder="Full address" rows="3"></textarea>
+                            </div>
+                            
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="org-password">Password</label>
+                                    <input type="password" id="org-password" placeholder="Enter password">
+                                </div>
+                                <div class="form-group">
+                                    <label for="org-confirm-password">Confirm Password</label>
+                                    <input type="password" id="org-confirm-password" placeholder="Confirm password">
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <button type="submit" class="btn btn-primary btn-block"> CREATE ACCOUNT </button>
+                    </form>
+                    
+                    <p class="form-footer">Already have an account? <a href="#" onclick="loadPage('login')">Login here</a></p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Dashboard Page -->
+        <div id="dashboard-page" class="page">
+            <div class="dashboard-header">
+                <h1> WELCOME, <span id="user-name">INNOVATOR</span>! </h1>
+            </div>
+            
+            <!-- Student Dashboard -->
+            <div id="student-dashboard" class="dashboard-section">
+                <div class="dashboard-grid">
+                    <div class="dashboard-card" onclick="loadPage('explore')">
+                        <h3> EXPLORE HACKATHONS</h3>
+                        <p>Discover and join amazing hackathon events happening worldwide</p>
+                    </div>
+                    <div class="dashboard-card">
+                        <h3> TOTAL REGISTRATIONS</h3>
+                        <div id="student-total-registrations" style="font-size: 3rem; font-weight: bold; color: var(--primary-color); margin-top: 1rem;">0</div>
+                    </div>
+                </div>
+                
+                <div class="scheduled-hackathons" style="margin-top: 2rem;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+                        <h2> MY REGISTRATIONS</h2>
+                        <div class="filters">
+                            <button class="filter-btn active" onclick="filterRegisteredHackathons('all')"> ALL</button>
+                            <button class="filter-btn" onclick="filterRegisteredHackathons('upcoming')"> UPCOMING</button>
+                            <button class="filter-btn" onclick="filterRegisteredHackathons('completed')"> COMPLETED</button>
+                        </div>
+                    </div>
+                    <div id="student-registered-list"></div>
+                </div>
+            </div>
+            
+            <!-- Organization Dashboard -->
+            <div id="organization-dashboard" class="dashboard-section">
+                <div class="dashboard-grid">
+                    <div class="dashboard-card" onclick="loadPage('explore')">
+                        <h3> EXPLORE EVENTS</h3>
+                        <p>View all hackathons on the platform</p>
+                    </div>
+                    <div class="dashboard-card" onclick="loadPage('create-hackathon')">
+                        <h3> CREATE HACKATHON</h3>
+                        <p>Schedule and manage your hackathon event</p>
+                    </div>
+                </div>
+                
+                <div class="scheduled-hackathons">
+                    <h2> YOUR SCHEDULED EVENTS</h2>
+                    <div id="org-scheduled-list"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Explore Hackathons Page -->
+        <div id="explore-page" class="page">
+            <div class="page-header">
+                <h1> DISCOVER AMAZING HACKATHONS </h1>
+                <input type="text" id="search-hackathon" placeholder=" Search hackathons, locations, keywords..." class="search-input">
+            </div>
+            
+            <div id="hackathons-list" class="hackathons-grid">
+                <!-- Hackathon cards will be loaded here -->
+            </div>
+        </div>
+
+        <!-- Create Hackathon Page -->
+        <div id="create-hackathon-page" class="page">
+            <div class="page-header">
+                <h1> SCHEDULE YOUR HACKATHON </h1>
+            </div>
+            
+            <form id="create-hackathon-form" onsubmit="handleCreateHackathon(event)" class="large-form">
+                <div class="form-section">
+                    <h2> Basic Details</h2>
+                    
+                    <div class="form-group">
+                        <label for="h-name">Hackathon Name</label>
+                        <input type="text" id="h-name" placeholder="Enter hackathon name" required>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="h-datetime">Date & Time</label>
+                            <input type="datetime-local" id="h-datetime" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="h-location">Location</label>
+                            <input type="text" id="h-location" placeholder="Event location" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="h-description">Description</label>
+                        <textarea id="h-description" placeholder="Describe your hackathon" rows="4" required></textarea>
+                    </div>
+                </div>
+                
+                <div class="form-section">
+                    <h2>Organizer Details</h2>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="h-organizer">Organizer Name</label>
+                            <input type="text" id="h-organizer" placeholder="Organizer name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="h-contact">Contact Details</label>
+                            <input type="text" id="h-contact" placeholder="Phone or email" required>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-section">
+                    <h2>Event Details</h2>
+                    
+                    <div class="form-group">
+                        <label for="h-prize">Prize Details</label>
+                        <textarea id="h-prize" placeholder="Prize pool and distribution" rows="3" required></textarea>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="h-rounds">Number of Rounds</label>
+                            <input type="number" id="h-rounds" min="1" placeholder="Number of rounds" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="h-round-details">Round Details</label>
+                        <textarea id="h-round-details" placeholder="Describe each round" rows="3" required></textarea>
+                    </div>
+                </div>
+                
+                <div class="form-section">
+                    <h2>Team & Problem Details</h2>
+                    
+                    <div class="form-group">
+                        <label for="h-problem-type">Problem Statement Type</label>
+                        <select id="h-problem-type" required>
+                            <option value="">Select type</option>
+                            <option value="own">Own Ideas</option>
+                            <option value="given">Given Problem</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="h-team-min">Min Team Size</label>
+                            <input type="number" id="h-team-min" min="1" placeholder="Minimum" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="h-team-max">Max Team Size</label>
+                            <input type="number" id="h-team-max" min="1" placeholder="Maximum" required>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-section">
+                    <h2>Additional Options</h2>
+                    
+                    <div class="form-group checkbox">
+                        <input type="checkbox" id="h-food-stay">
+                        <label for="h-food-stay">Food & Stay Available</label>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="h-poster">Poster URL (Optional)</label>
+                        <input type="url" id="h-poster" placeholder="URL to poster image">
+                    </div>
+                </div>
+                
+                <button type="submit" class="btn btn-primary btn-block"> SCHEDULE HACKATHON </button>
+            </form>
+        </div>
+
+        <!-- Hackathon Details & Registration Page -->
+        <div id="hackathon-detail-page" class="page">
+            <div class="detail-container">
+                <div class="detail-header">
+                    <button class="btn btn-secondary" onclick="loadPage('explore')"> BACK TO LIST</button>
+                </div>
+                
+                <div class="hackathon-detail" id="hackathon-detail">
+                    <!-- Detail content will be loaded here -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Team Registration Modal -->
+        <div id="registration-modal" class="modal">
+            <div class="modal-content large-modal">
+                <span class="modal-close" onclick="closeModal('registration-modal')">&times;</span>
+                <h2> BUILD YOUR DREAM TEAM </h2>
+                
+                <form id="team-registration-form" onsubmit="handleTeamRegistration(event)">
+                    <div class="form-section">
+                        <h3>Team Details</h3>
+                        
+                        <div class="form-group">
+                            <label for="team-name">Team Name</label>
+                            <input type="text" id="team-name" placeholder="Enter team name" required>
+                        </div>
+                        
+                        <h4>Team Leader Details</h4>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="leader-name">Name</label>
+                                <input type="text" id="leader-name" placeholder="Full name" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="leader-email">Email</label>
+                                <input type="email" id="leader-email" placeholder="Email" required>
+                            </div>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="leader-mobile">Mobile</label>
+                                <input type="tel" id="leader-mobile" placeholder="Mobile" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="leader-whatsapp">WhatsApp</label>
+                                <input type="tel" id="leader-whatsapp" placeholder="WhatsApp" required>
+                            </div>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="leader-dob">Date of Birth</label>
+                                <input type="date" id="leader-dob" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="leader-college">College/University</label>
+                                <input type="text" id="leader-college" placeholder="College name" required>
+                            </div>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="leader-degree">Degree</label>
+                                <input type="text" id="leader-degree" placeholder="B.Tech, B.Sc, etc." required>
+                            </div>
+                            <div class="form-group">
+                                <label for="leader-department">Department</label>
+                                <input type="text" id="leader-department" placeholder="Department" required>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="leader-year">Year</label>
+                            <select id="leader-year" required>
+                                <option value="">Select year</option>
+                                <option value="I">I</option>
+                                <option value="II">II</option>
+                                <option value="III">III</option>
+                                <option value="IV">IV</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div id="team-members-section" class="form-section">
+                        <h3>Team Members (Additional)</h3>
+                        <div id="team-members-container"></div>
+                        <button type="button" class="btn btn-secondary" onclick="addTeamMember()">+ Add Team Member</button>
+                    </div>
+                    
+                    <div id="food-stay-section" class="form-section" style="display: none;">
+                        <h3>Food & Stay Options</h3>
+                        <div class="form-group">
+                            <label for="food-stay-option">Would you like food and stay provided?</label>
+                            <select id="food-stay-option">
+                                <option value="">Select option</option>
+                                <option value="yes">Yes</option>
+                                <option value="no">No</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div id="problem-statement-section" class="form-section" style="display: none;">
+                        <h3>Your Problem Statement</h3>
+                        <div class="form-group">
+                            <label for="problem-statement">Describe your problem statement/idea</label>
+                            <textarea id="problem-statement" placeholder="Explain your hackathon idea" rows="4"></textarea>
+                        </div>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary btn-block"> REGISTER TEAM </button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Message Modal -->
+        <div id="message-modal" class="modal">
+            <div class="modal-content">
+                <span class="modal-close" onclick="closeModal('message-modal')">&times;</span>
+                <p id="message-text"></p>
+                <button class="btn btn-primary" onclick="closeModal('message-modal')">Close</button>
+            </div>
+        </div>
+
+        <!-- Teams Modal -->
+        <div id="teams-modal" class="modal">
+            <div class="modal-content large-modal">
+                <span class="modal-close" onclick="closeModal('teams-modal')">&times;</span>
+                <h2> REGISTERED TEAMS </h2>
+                <div id="teams-list-container">
+                    <!-- Teams will be loaded here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
